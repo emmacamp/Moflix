@@ -4,11 +4,9 @@ import { useState } from 'react'
 import './index.scss'
 import { useContext } from '../../Context'
 import Swal from 'sweetalert2'
-// import withReactContent from 'sweetalert2-react-content'
 import { ENDPOINTS } from '../../services/api'
 
-/* A function that is being called in the Login.js file. */
-function index ({ type }) {
+function index({ type }) {
   const [form, setForm] = useState({
     name: '',
     password: ''
@@ -38,10 +36,10 @@ function index ({ type }) {
         navigate('/admin')
       })
       .catch((error) => {
-        console.error(error)
+        console.log(error)
         Swal.fire({
           title: 'Error',
-          text: error.response.data.message,
+          text: error.message,
           icon: 'error'
         })
       })
@@ -82,7 +80,7 @@ function index ({ type }) {
             name='password'
             value={form.password}
             onChange={handleChange}
-          />{' '}
+          />
           <i className='zmdi zmdi-lock zmdi-hc-lg' />
         </div>
         <button onClick={handleSubmit} type='submit'>

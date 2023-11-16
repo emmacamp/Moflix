@@ -7,7 +7,6 @@ import { ENDPOINTS } from "../../services/api";
 function index() {
 	const [videos, setVideos] = useState([]);
 	useEffect(() => {
-		// ReactGA.pageview(window.location.pathname + window.location.search);
 		axios(ENDPOINTS.TRAILERS.GET_TRAILERS).then(res => {
 			setVideos(res.data.body);
 		});
