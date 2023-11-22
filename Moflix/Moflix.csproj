@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.11" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Moflix.Core.Application\Moflix.Core.Application.csproj" />
+    <ProjectReference Include="..\Moflix.Core.Domain\Moflix.Core.Domain.csproj" />
+    <ProjectReference Include="..\Moflix.Infrastructure.Identity\Moflix.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\Moflix.Infrastructure.Persistence\Moflix.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\Moflix.Infrastructure.Shared\Moflix.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
