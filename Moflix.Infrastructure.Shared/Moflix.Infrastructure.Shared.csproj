@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.3.0" />
+    <PackageReference Include="MimeKit" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Moflix.Core.Application\Moflix.Core.Application.csproj" />
+    <ProjectReference Include="..\Moflix.Core.Domain\Moflix.Core.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
