@@ -24,13 +24,13 @@ const App = () => {
           <Route element={<SearchPage />} exact path='/search/:search' />
           <Route element={<Nuevo />} exact path='/nuevo' />
           <Route element={<Loading />} exact path='/loading' />
-          <Route element={<Trailer />} exact path='/trailer/:id' />
+          <Route element={<Trailer />} exact path='/movie/:id' />
         </Route>
 
         {/* Protected routes */}
         <Route path='/' element={<ProtectedRoute />}>
           <Route element={<Admin />} exact path='/admin' />
-          <Route element={<Update />} exact path='/admin/trailer/:id' />
+          <Route element={<Update />} exact path='/admin/movie/:id' />
           <Route element={<Create />} exact path='/admin/create' />
         </Route>
         <Route element={<Register />} exact path='/register' />

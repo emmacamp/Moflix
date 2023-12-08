@@ -1,6 +1,19 @@
 .Home {
 	width: 90%;
 	margin: 0 auto;
+	font-size: x-large;
 	color: #d7d7d7;
-	background-color: rgb(20, 20, 20);
+	// background-color: rgb(20, 20, 20);
+}
+
+.container-img-home {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	img {
+		width: 25%;
+		height: auto;
+	}
 }

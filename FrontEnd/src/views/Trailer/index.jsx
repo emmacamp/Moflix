@@ -2,16 +2,43 @@ import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./index.scss";
+import { ENDPOINTS } from "../../services/api";
 
 function index() {
-  /* A React Hook that is used to fetch data from an API. */
   const { id } = useParams();
-  const [trailer, setTrailer] = useState({});
+  const [movie, setMovie] = useState({
+    id: 0,
+    title: "",
+    year: 0,
+    director: "",
+    synopsis: "",
+    src: "",
+    cover: "",
+    actors: "",
+    categoryName: "",
+    categoryId: 0,
+    categoryWithoutProduct: {
+      id: 0,
+      name: "",
+      description: "",
+      productsQuantity: 0,
+    },
+    category: {
+      id: 0,
+      name: "",
+      description: "",
+      products: [""],
+      productsQuantity: 0,
+    },
+  });
+
+
   useEffect(() => {
-    axios.get(`http://localhost:4000/trailer/${id}`).then((res) => {
-      setTrailer(res.data.body);
-      console.log(res.data.body.src);
-    });
+    axios.get(ENDPOINTS.MOVIES.GET.BY_ID(id))
+      .then((res) => {
+        setMovie(res.data);
+        console.log(res.data);
+      });
   }, []);
 
   return (
@@ -19,34 +46,34 @@ function index() {
       <div className="trailer__info">
         <div className="trailer__info__portada">
           <img
-            src={trailer.portada}
-            alt={`Portada de la pelicula ${trailer.titulo}`}
+            src={movie.cover}
+            alt={`Portada de la pelicula ${movie.title}`}
           />
         </div>
         <div className="trailer__info__description">
           <div className="titulo">
-            <p>{trailer.titulo}</p>
+            <p>{movie.title}</p>
           </div>
           <div className="info">
             <p>
-              Director: <strong>{trailer.director}</strong>
+              Director: <strong>{movie.director}</strong>
             </p>
             <p>
-              Actores: <strong>{trailer.actores} </strong>
+              Actores: <strong>{movie.actors} </strong>
             </p>
             <p>
-              Año: <strong>{trailer.año} </strong>
+              Año: <strong>{movie.year} </strong>
             </p>
           </div>
-          <p>{trailer.reseña}</p>
+          <p>Reseña: {movie?.reseña}</p>
         </div>
       </div>
 
       <div className="trailer__video">
         <iframe
           src={
-            trailer.src
-              ? trailer.src
+            movie.src
+              ? movie.src
               : "https://www.youtube.com/embed/z9ZqsviNASs"
           }
           title="YouTube video player"

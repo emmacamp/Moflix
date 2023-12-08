@@ -17,7 +17,6 @@ function index({ type }) {
 
   const navigate = useNavigate()
 
-  /* Preventing the default action of the form. */
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!form.name || !form.password) {
@@ -28,22 +27,47 @@ function index({ type }) {
       })
       return
     }
-    axios
-      .post(ENDPOINTS.USER[typeURL], form)
-      .then((res) => {
-        window.localStorage.setItem('token', res.data.body.token)
-        dispatch({ type: 'login', payload: res.data.body.token })
-        navigate('/admin')
-      })
-      .catch((error) => {
-        console.log(error)
-        Swal.fire({
-          title: 'Error',
-          text: error.message,
-          icon: 'error'
+
+    if (type === 'LOGIN') {
+      axios
+        .post(ENDPOINTS.ACCOUNT.POST.AUTHENTICATE, form)
+        .then((res) => {
+          window.localStorage.setItem('token', res.data.body.token)
+          dispatch({ type: 'login', payload: res.data.body.token })
+          navigate('/admin')
         })
-      })
+        .catch((error) => {
+          console.log(error)
+          Swal.fire({
+            title: 'Error',
+            text: error.message,
+            icon: 'error'
+          })
+        })
+
+    } else {
+      axios
+        .post(ENDPOINTS.ACCOUNT.POST.REGISTER, form)
+        .then((res) => {
+          Swal.fire({
+            title: 'Usuario creado',
+            text: res.data.message,
+            icon: 'success'
+          })
+          navigate('/login')
+        })
+        .catch((error) => {
+          console.log(error)
+          Swal.fire({
+            title: 'Error',
+            text: error.message,
+            icon: 'error'
+          })
+        })
+
+    }
   }
+
 
   const handleChange = (e) => {
     e.preventDefault()

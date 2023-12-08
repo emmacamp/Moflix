@@ -5,63 +5,81 @@ import axios from 'axios'
 import Icon from '../../assets/icons/page.png'
 
 import './index.scss'
-function index ({ type }) {
+import { ENDPOINTS } from '../../services/api'
+import { useForm } from '../../hook'
+
+const initialStateMovie = {
+  id: 0,
+  title: "",
+  year: 0,
+  director: "",
+  synopsis: "",
+  src: "",
+  cover: "",
+  actors: "",
+  categoryName: "",
+  categoryId: 0,
+  categoryWithoutProduct: {
+    id: 0,
+    name: "",
+    description: "",
+    productsQuantity: 0,
+  },
+  category: {
+    id: 0,
+    name: "",
+    description: "",
+    products: [""],
+    productsQuantity: 0,
+  },
+}
+
+
+function index({ type }) {
   const navigate = useNavigate()
   const { id } = useParams()
-  const [video, setVideo] = useState({
-    actores: [],
-    titulo: '',
-    año: '',
-    director: '',
-    reseña: '',
-    src: '',
-    portada: ''
-  })
-  const typeTitle = type === 'create' ? 'Crear Trailer' : 'Editar trailer'
+
+  const { formState, onInputChange } = useForm(initialStateMovie)
+
+  const [movie, setMovie] = useState(initialStateMovie)
+
+  const typeTitle = type === 'create' ? 'Crear Trailer' : 'Editar trailer';
+
   useEffect(() => {
     if (type === 'create') return
     axios
-      .get(`http://localhost:4000/trailer/${id}`)
+      .get(ENDPOINTS.TRAILER.GET.BY_ID(id))
       .then(res => {
-        const { actores, titulo, año, director, reseña, src, portada } = res.data.body
-        setVideo({
-          actores,
-          titulo,
-          año,
-          director,
-          reseña,
-          src,
-          portada
-        })
+        const movie = res.data
+        setVideo({ ...movie, actores: movie.actores.join(',') })
       })
   }, [])
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+
     if (type === 'create') {
-      axios.post('http://localhost:4000/trailer', video).then(res => {
-        navigate('/admin')
-      })
-    } else {
-      axios
-        .patch(`http://localhost:4000/trailer/${id}`, { trailer: video })
-        .then(res => {
-          navigate('/admin')
-        })
+      await axios.post(ENDPOINTS.MOVIES.POST, movie)
+      return navigate('/admin')
+
     }
+
+    await axios.put(ENDPOINTS.MOVIES.PUT.UPDATE(id), movie)
+    navigate('/admin')
+
   }
 
   const handleChange = e => {
-    setVideo({
-      ...video,
+    setMovie({
+      ...movie,
       [e.target.name]: e.target.value
     })
   }
 
   const handleChangeActores = e => {
     const value = e.target.value.split(',')
-    setVideo({
-      ...video,
+    setMovie({
+      ...movie,
       actores: value
     })
   }
@@ -69,7 +87,7 @@ function index ({ type }) {
   const handleChangeAño = e => {
     const reg = new RegExp('^[0-9]+$')
     if (reg.exec(e.target.value) || e.target.value == ' ') {
-      setVideo({
+      setMovie({
         ...video,
         año: e.target.value
       })
@@ -90,8 +108,8 @@ function index ({ type }) {
                 name='titulo'
                 placeholder=' Ej: La cucaracha'
                 id='titulo'
-                onChange={handleChange}
-                value={video.titulo}
+                onChange={onInputChange}
+                value={formState.title}
                 required
               />
             </label>
@@ -105,8 +123,8 @@ function index ({ type }) {
                 name='actores'
                 id='actores'
                 placeholder='Ej: Juan, Pedro, Juan'
-                onChange={handleChangeActores}
-                value={video.actores}
+                onChange={onInputChange}
+                value={formState.actores}
                 required
               />
             </label>
@@ -119,8 +137,8 @@ function index ({ type }) {
                 name='año'
                 id='año'
                 placeholder='Ej: 2019'
-                onChange={handleChangeAño}
-                value={video.año}
+                onChange={onInputChange}
+                value={formState.año}
                 required
               />
             </label>
@@ -135,8 +153,8 @@ function index ({ type }) {
                 name='director'
                 id='director'
                 placeholder='Ej: Juan'
-                onChange={handleChange}
-                value={video.director}
+                onChange={onInputChange}
+                value={formState.director}
                 required
               />
             </label>
@@ -150,8 +168,8 @@ function index ({ type }) {
                 name='src'
                 id='src'
                 placeholder='Ej: https://www.youtube.com/embed/dQw4w9WgXcQ'
-                onChange={handleChange}
-                value={video.src}
+                onChange={onInputChange}
+                value={formState.src}
                 required
               />
             </label>
@@ -164,8 +182,8 @@ function index ({ type }) {
                 name='portada'
                 id='portada'
                 placeholder='Ej: https://i.imgur.com/pLbxazs.jpg'
-                onChange={handleChange}
-                value={video.portada}
+                onChange={onInputChange}
+                value={formState.portada}
                 required
               />
             </label>
@@ -180,8 +198,8 @@ function index ({ type }) {
                 name='reseña'
                 id='reseña'
                 placeholder='Ej: La cucaracha es una pelicula de terror'
-                onChange={handleChange}
-                value={video.reseña}
+                onChange={onInputChange}
+                value={formState.reseña}
                 required
               />
             </label>

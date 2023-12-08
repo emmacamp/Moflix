@@ -8,8 +8,8 @@ const useAuth = () => {
 }
 
 const ProtectedRoutes = () => {
-  // const auth = true
-  const auth = useAuth()
+  const auth = true
+  // const auth = useAuth()
   return auth ? <Outlet /> : <Navigate to='/login' />
 }
 
