@@ -1,17 +1,48 @@
-const API_URL = 'http://localhost:5000'
+const API_URL = 'http://localhost:5036/api'
+const API_URL_V = 'http://localhost:5036/api/v1'
+
+
 
 export const ENDPOINTS = {
-  USER: {
-    LOGIN: `${API_URL}/auth/login`,
-    REGISTER: `${API_URL}/auth/register`,
-    TRAILERS: `${API_URL}/trailers`,
-    TRAILER: `${API_URL}/trailers/`
+  ACCOUNT: {
+    GET: {
+      CONFIRM_EMAIL: `${API_URL}/Account/confirm-email`,
+    },
+    POST: {
+      AUTHENTICATE: `${API_URL}/Account/Authenticate`,
+      REGISTER: `${API_URL}/Account/register`,
+      FORGOT_PASSWORD: ({ userId, token }) => `${API_URL}/Account/forgot-password?userId=${userId}&token=${token}`,
+      RESET_PASSWORD: `${API_URL}/Account/reset-password`,
+    }
   },
-  TRAILERS: {
-    GET_TRAILERS: `${API_URL}/trailers`,
-    CREATE_TRAILER: `${API_URL}/trailer`,
-    GET_TRAILER: `${API_URL}/trailers/`,
-    UPDATE_TRAILER: `${API_URL}/trailers/`,
-    DELETE_TRAILER: `${API_URL}/trailers/`
-  }
+  CATEGORY: {
+    GET: {
+      ALL: `${API_URL}/Category`,
+      BY_ID: (id) => `${API_URL}/category/${id}`,
+    },
+    POST: {
+      CREATE: `${API_URL}/category`,
+    },
+    PUT: {
+      UPDATE: (id) => `${API_URL}/category/${id}`,
+    },
+    DELETE: {
+      DELETE: (id) => `${API_URL}/category/${id}`,
+    }
+  },
+  MOVIES: {
+    GET: {
+      ALL: `${API_URL_V}/Movies`,
+      BY_ID: (id) => `${API_URL_V}/Movies/${id}`,
+    },
+    POST: {
+      CREATE: `${API_URL_V}/Movies`,
+    },
+    PUT: {
+      UPDATE: (id) => `${API_URL_V}/Movies/${id}`,
+    },
+    DELETE: {
+      DELETE: (id) => `${API_URL_V}/Movies/${id}`,
+    },
+  },
 }
