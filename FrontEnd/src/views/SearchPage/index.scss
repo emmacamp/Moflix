@@ -1,13 +1,26 @@
-.Search{
+.Search {
   width: 90%;
   margin: 0 auto;
   color: #d7d7d7;
-  .notFound{
+  .notFound {
     font-size: 2rem;
     text-align: center;
-    margin:100px 0;
+    margin: 100px 0;
   }
-  h1{
+
+  .container-img-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 25%;
+      height: auto;
+    }
+  }
+
+  h1 {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1rem;

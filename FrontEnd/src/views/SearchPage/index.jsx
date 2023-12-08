@@ -2,24 +2,32 @@ import { useParams } from "react-router";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useFilter from "./../../hook/useFilter";
-import ListOfVideos from "../../components/ListOfVideos";
+import ListOfMovies from "../../components/ListOfMovies";
 import "./index.scss";
+import { ENDPOINTS } from "../../services/api";
+import NotSearchImage from "../../assets/horror_movie.svg";
 
 function index() {
 	const { search } = useParams();
 	const [results, setResults] = useState([]);
+
 	useEffect(() => {
-		axios.get(`http://localhost:4000/trailer`).then(data => {
+		axios.get(ENDPOINTS.MOVIES.GET.ALL).then(data => {
 			setResults(useFilter(data.data.body, search));
 		});
 	}, [search]);
+
+
 	return (
 		<div className='Search'>
 			<h1>Busqueda: {search}</h1>
 			{results.length > 0 ? (
-				<ListOfVideos videos={results} />
+				<ListOfMovies movies={results} />
 			) : (
-				<h2 className="notFound">No hay resultados</h2>
+					<div className="container-img-search">
+						<img src={NotSearchImage} alt="not-search-img img" />
+						<h1>No hay trailers</h1>
+					</div>
 			)}
 		</div>
 	);

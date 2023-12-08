@@ -17,7 +17,7 @@ function index() {
 
 	return (
 		<div className='Home'>
-			<h1>Home</h1>
+			{/* <h1>Home</h1> */}
 			{
 				videos.length > 0
 					? <ListOfMovies movies={videos} />
