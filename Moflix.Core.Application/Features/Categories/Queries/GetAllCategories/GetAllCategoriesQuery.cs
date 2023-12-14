@@ -28,7 +28,7 @@ namespace Moflix.Core.Application.Features.Categories.Queries.GetAllCategories
 
         private async Task<List<CategoryViewModel>> GetAllViewModelWithInclude()
         {
-            var categoryList = await _categoryRepository.GetAllWithIncludeAsync(new List<string> { "Products" });
+            var categoryList = await _categoryRepository.GetAllWithIncludeAsync(new List<string> { "Movies" });
 
             return categoryList.Select(category => new CategoryViewModel
             {

@@ -52,6 +52,7 @@ namespace Moflix.Core.Application.Services
                 Id = movie.Id,
                 Director = movie.Director,
                 Cover = movie.Cover,
+                Src = movie.Src,
                 CategoryName = movie.Category.Name,
                 CategoryId = movie.Category.Id
             }).ToList();
@@ -73,6 +74,7 @@ namespace Moflix.Core.Application.Services
                 Id = movie.Id,
                 Director = movie.Director,
                 Cover = movie.Cover,
+                Src = movie.Src,
                 CategoryName = movie.Category.Name,
                 CategoryId = movie.Category.Id
             }).ToList();

@@ -9,6 +9,7 @@ namespace Moflix.Core.Domain.Entities
         public string Director { get; set; }
         public string Synopsis { get; set; }
         public string Cover { get; set; }
+        public string Src { get; set; }
         public string Actors { get; set; }
         public int CategoryId { get; set; }
 

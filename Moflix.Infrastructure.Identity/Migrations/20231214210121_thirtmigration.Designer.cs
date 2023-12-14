@@ -12,8 +12,8 @@ using Moflix.Infrastructure.Identity.Context;
 namespace Moflix.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20231118152754_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20231214210121_thirtmigration")]
+    partial class thirtmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Moflix.Core.Application.ViewModels.Categories;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Moflix.Core.Application.ViewModels.Movies
 {
@@ -26,6 +27,7 @@ namespace Moflix.Core.Application.ViewModels.Movies
         [DataType(DataType.Upload)]
         public IFormFile? File { get; set; }
 
+        [JsonIgnore]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The Src field is required.")]

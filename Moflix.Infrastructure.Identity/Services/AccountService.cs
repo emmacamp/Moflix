@@ -93,7 +93,7 @@ namespace Moflix.Infrastructure.Identity.Services
             if (userWithSameUserName != null)
             {
                 response.HasError = true;
-                response.Error = $"username '{request.UserName}' is already taken.";
+                response.Error = $"Username '{request.UserName}' is already taken.";
                 return response;
             }
 
@@ -128,12 +128,14 @@ namespace Moflix.Infrastructure.Identity.Services
             else
             {
                 response.HasError = true;
-                response.Error = $"An error occurred trying to register the user.";
+                // Concatenate the identity errors into a single string
+                response.Error = $"An error occurred trying to register the user: {string.Join(", ", result.Errors.Select(e => e.Description))}";
                 return response;
             }
 
             return response;
         }
+
 
         public async Task<string> ConfirmAccountAsync(string userId, string token)
         {
